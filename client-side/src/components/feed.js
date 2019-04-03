@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Modal, Button } from "react-bootstrap";
 import Axios from "axios";
+import ViewComments from "./view-comments";
 
 const Feeds = props => {
   const [show, setShow] = useState(false);
@@ -31,12 +32,8 @@ const Feeds = props => {
   return (
     <div>
       <Modal.Dialog onClick={() => setShow(true)}>
-        <Modal.Header closeButton>
+        <Modal.Header className="imgs" closeButton>
           <Modal.Title>article title</Modal.Title>
-          <img
-            className="articleImages"
-            src="https://images.unsplash.com/photo-1553991499-7dc579547f16?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400&q=60"
-          />
         </Modal.Header>
         <Modal.Body>
           <p>
@@ -52,9 +49,9 @@ const Feeds = props => {
         dialogClassName="modal-90w"
         aria-labelledby="example-custom-modal-styling-title"
       >
-        <Modal.Header closeButton>
+        <Modal.Header className="imgs" closeButton>
           <Modal.Title id="example-custom-modal-styling-title">
-            Custom Modal Styling
+            {/* Custom Modal Styling */}
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
@@ -88,7 +85,7 @@ const Feeds = props => {
             <i class="icon far fa-comments" onClick={() => viewComment(true)} />
           </div>
           <div className="iconBackground">
-            <i class=" icon fas fa-sync-alt" />
+            <i class="icon fas fa-share-alt" />
           </div>
           <div className="iconBackground">
             <i class="icon far fa-thumbs-up" />
@@ -97,10 +94,13 @@ const Feeds = props => {
             <i class=" icon fab fa-font-awesome-flag" />
           </div>
           <div className="iconBackground">
-            <i class=" icon far fa-bookmark"  onClick={()=> alertBookmarks(true)}/>
+            <i
+              class=" icon far fa-bookmark"
+              onClick={() => alertBookmarks(true)}
+            />
           </div>
- 
         </Modal.Footer>
+        <ViewComments postedComments={props.comments} />
       </Modal>
 
       <Modal
@@ -111,7 +111,7 @@ const Feeds = props => {
       >
         <Modal.Header closeButton>
           <Modal.Title id="example-custom-modal-styling-title">
-            Custom Modal Styling
+            {/* Custom Modal Styling */}
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
@@ -119,17 +119,17 @@ const Feeds = props => {
         </Modal.Body>
         <Modal.Footer>
           <div className="iconBackground">
-            <i class="icon far fa-comments" onClick={() => viewComment(true)} />
+            <i className="icon far fa-send" onClick={() => viewComment(true)} />
+          </div>
+          {/* <div className="iconBackground">
+            <i className=" icon fas fa-sync-alt" />
           </div>
           <div className="iconBackground">
-            <i class=" icon fas fa-sync-alt" />
+            <i className="icon far fa-thumbs-up" />
           </div>
           <div className="iconBackground">
-            <i class="icon far fa-thumbs-up" />
-          </div>
-          <div className="iconBackground">
-            <i class=" icon fab fa-font-awesome-flag" />
-          </div>
+            <i className=" icon fab fa-font-awesome-flag" />
+          </div> */}
           {/* <Button variant="secondary">filter</Button>
           <Button variant="primary"> comment</Button> */}
         </Modal.Footer>
@@ -150,12 +150,10 @@ const Feeds = props => {
           <p>Bookmarked</p>
         </Modal.Body>
         <Modal.Footer>
-          
           {/* <Button variant="secondary">filter</Button>
           <Button variant="primary"> comment</Button> */}
         </Modal.Footer>
       </Modal>
-
     </div>
   );
 };
