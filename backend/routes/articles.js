@@ -34,6 +34,14 @@ const articles = (app, client) => {
     var taggedInfo = await client.query(`INSERT INTO public.tagged_article(tagged_article_id, tagged_item)VALUES ( $1, $2);`, [taggedPersonInfo.rows[0].id, articleInfo.rows[0].id])
     res.status(200).end();
   })
+app.post("/article/bookmark", async(req,res) => {
+  var userInfo = await client.query(`SELECT * FROM users WHERE name=$1`, [req.body.name]);
+  var bookmarkInfo = await client.query(`SELECT * FROM articles where title=$1`, [req.body.title]);
+  var res = await client.query(`INSERT INTO bookmark(users_id, article_id)VALUES ( $1, $2);`, [userInfo.rows[0].id, bookmarkInfo.rows[0].id])
+  res.status(200).end();
+})
+
+
   app.get("/article/tags/:title", async (req, res) => {
     var articleInfo = await client.query(`SELECT * FROM articles where title=$1`, [req.params.title]);
     var taggedPersonInfo = await client.query(`SELECT * FROM tagged_article WHERE tagged_item=$1`, [articleInfo.rows[0].id]);
@@ -54,6 +62,10 @@ const articles = (app, client) => {
     var articleInfo = await client.query(`SELECT * FROM articles where title=$1;`, [req.params.title]);
     var articles = await client.query('SELECT * FROM articles_comments where commented_item =$1;', [articleInfo.rows[0].id]);
     res.json(articles.rows).status(200).end();
+  });
+  app.get("/article/bookmarked", async (req, res) => {
+    var bookmarks = await client.query('SELECT * FROM bookmarks;');
+    res.json(bookmarks.rows).status(200).end();
   });
   app.get("/all/articles", async (req, res) => {
     var articles = await client.query('SELECT * FROM articles_likes;');

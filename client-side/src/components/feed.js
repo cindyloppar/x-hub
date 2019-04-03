@@ -18,16 +18,15 @@ const Feeds = props => {
       });
   });
 
-  handleClick(()=>{
-
-    Axios.post("https://localhost:3001//article/bookmark")
-    .then(function(response){
-      console.log
-    })
-    .catch(function(erro){
-      
-    })
-  })
+  // handleClick(()=>{
+  //   Axios.post("https://localhost:3001//article/bookmark")
+  //   .then(function(response){
+  //     console.log
+  //   })
+  //   .catch(function(error){
+  //     console.log(error)
+  //   })
+  // })
 
   return (
     <div>
