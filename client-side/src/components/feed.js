@@ -8,7 +8,7 @@ const Feeds = props => {
   const [showBookmarks, alertBookmarks] = useState(false);
 
   useEffect(() => {
-    Axios.get("localhost:3001/article/likes/")
+    Axios.get("https://localhost:3001/article/likes/")
       .then(function(response) {
         console.log(response);
       })
@@ -16,6 +16,17 @@ const Feeds = props => {
         console.log(error);
       });
   });
+
+  handleClick(()=>{
+
+    Axios.post("https://localhost:3001//article/bookmark")
+    .then(function(response){
+      console.log
+    })
+    .catch(function(erro){
+      
+    })
+  })
 
   return (
     <div>
