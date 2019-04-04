@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Modal, Button } from "react-bootstrap";
-import Axios from "axios";
+import { Modal } from "react-bootstrap";
+import axios from "axios";
 import ViewComments from "./view-comments";
 
 const Feeds = props => {
@@ -9,24 +9,24 @@ const Feeds = props => {
   const [showBookmarks, alertBookmarks] = useState(false);
 
   useEffect(() => {
-    Axios.get("https://localhost:3001/article/likes/")
-      .then(function(response) {
+    axios.get("https://localhost:3001/article/likes/")
+      .then(function (response) {
         console.log(response);
       })
-      .catch(function(error) {
+      .catch(function (error) {
         console.log(error);
       });
   });
 
-  // handleClick(()=>{
-  //   Axios.post("https://localhost:3001//article/bookmark")
-  //   .then(function(response){
-  //     console.log
-  //   })
-  //   .catch(function(error){
-  //     console.log(error)
-  //   })
-  // })
+    // const handleClick = (() => {
+    //   axios.post("https://localhost:3001/article/bookmark")
+    //     .then(function (response) {
+    //       console.log(response)
+    //     })
+    //     .catch(function (error) {
+    //       console.log(error)
+    //     })  
+    // })
 
   return (
     <div>
@@ -87,16 +87,14 @@ const Feeds = props => {
             <i class="icon fas fa-share-alt" />
           </div>
           <div className="iconBackground">
-            <i class="icon far fa-thumbs-up" />
+            <i class="icon far fa-thumbs-up"/>
           </div>
           <div className="iconBackground">
-            <i class=" icon fab fa-font-awesome-flag" />
+          <i class=" icon fab fa-font-awesome-flag" />
           </div>
+          
           <div className="iconBackground">
-            <i
-              class=" icon far fa-bookmark"
-              onClick={() => alertBookmarks(true)}
-            />
+            <i class=" icon far fa-bookmark" onClick={() => alertBookmarks(true)} />
           </div>
         </Modal.Footer>
         <ViewComments postedComments={props.comments} />
@@ -141,9 +139,9 @@ const Feeds = props => {
         aria-labelledby="example-custom-modal-styling-title"
       >
         <Modal.Header closeButton>
-          {/* <Modal.Title id="example-custom-modal-styling-title">
-            Custom Modal Styling
-          </Modal.Title> */}
+          <Modal.Title id="example-custom-modal-styling-title">
+            Bookmarked
+          </Modal.Title> 
         </Modal.Header>
         <Modal.Body>
           <p>Bookmarked</p>

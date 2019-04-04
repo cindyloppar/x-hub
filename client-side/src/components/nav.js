@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { DashContainer, BtmNav, Navigation, Input } from "./styled-components";
 import { Dropdown } from "react-bootstrap";
+import DisplayBookmarks from './bookmarks'
 
 const Nav = () => {
   return (
@@ -14,7 +15,7 @@ const Nav = () => {
             <Dropdown.Item href="#/action-1">Preferences</Dropdown.Item>
             <Dropdown.Item href="#/action-2">X-Capabilities</Dropdown.Item>
             <Dropdown.Item href="#/action-3">FAQ</Dropdown.Item>
-            <Dropdown.Item href="">Bookmarks</Dropdown.Item>
+            <Dropdown.Item href="http://localhost:41927/bookmarks">Bookmarks</Dropdown.Item>
           </Dropdown.Menu>
         </Dropdown>
         <img src="https://github.com/moralss/x-hub/blob/master/client-side/src/components/X.png?raw=true" />
