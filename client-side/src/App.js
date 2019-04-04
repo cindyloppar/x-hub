@@ -6,17 +6,14 @@ import "./App.css";
 import Chat from "./components/Chat";
 import DisplayBookmarks from "./components/bookmarks"
 
-
 class App extends Component {
   render() {
     return (
       <div className="App">
          <Main /> 
-       
       </div>
     );
   }
 }
 
-//<Dashboard />
 export default App;

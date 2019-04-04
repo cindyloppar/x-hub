@@ -2,14 +2,18 @@ import React, { useState, useEffect } from "react";
 import { Modal } from "react-bootstrap";
 import axios from "axios";
 import ViewComments from "./view-comments";
+import FlagPost from "./flag-post";
 
 const Feeds = props => {
   const [show, setShow] = useState(false);
   const [showComments, viewComment] = useState(false);
+  const [showSearch, search] = useState(false);
+
   const [showBookmarks, alertBookmarks] = useState(false);
+  const [comment, addComment] = useState("");
 
   useEffect(() => {
-    axios.get("https://localhost:3001/article/likes/")
+    Axios.get("localhost:3001/article/likes/")
       .then(function (response) {
         console.log(response);
       })
@@ -17,16 +21,16 @@ const Feeds = props => {
         console.log(error);
       });
   });
+  function pushToStorage(username, comment, article) {
+    var date = new Date();
+    // var dd = today.getDate();
+    var store = [];
+    var value = store.push({ "user": username, "comment": comment, "date":date });
 
-    // const handleClick = (() => {
-    //   axios.post("https://localhost:3001/article/bookmark")
-    //     .then(function (response) {
-    //       console.log(response)
-    //     })
-    //     .catch(function (error) {
-    //       console.log(error)
-    //     })  
-    // })
+    localStorage.setItem("comment", JSON.stringify(value))
+
+    return { article: article, comments: value }
+  }
 
   return (
     <div>
@@ -84,6 +88,7 @@ const Feeds = props => {
             <i class="icon far fa-comments" onClick={() => viewComment(true)} />
           </div>
           <div className="iconBackground">
+            <i class=" icon fas fa-sync-alt" onClick={()=> search(true)}/>
             <i class="icon fas fa-share-alt" />
           </div>
           <div className="iconBackground">
@@ -100,36 +105,44 @@ const Feeds = props => {
         <ViewComments postedComments={props.comments} />
       </Modal>
 
-      <Modal
+     ` <Modal
         show={showComments}
         onHide={() => viewComment(false)}
         dialogClassName="modal-90w"
         aria-labelledby="example-custom-modal-styling-title"
       >
         <Modal.Header closeButton>
-          <Modal.Title id="example-custom-modal-styling-title">
-            {/* Custom Modal Styling */}
-          </Modal.Title>
+          <Modal.Title id="example-custom-modal-styling-title" />
         </Modal.Header>
         <Modal.Body>
-          <input placeholder="add comment" type="text" />
-        </Modal.Body>
-        <Modal.Footer>
-          <div className="iconBackground">
-            <i className="icon far fa-send" onClick={() => viewComment(true)} />
+          <div className="commentsSection">
+            <label>Comment</label>
+            <input
+              placeholder=" Add comment here"
+              onChange={e => addComment(e.target.value)}
+              type="text"
+            />
           </div>
-          {/* <div className="iconBackground">
+          <div className="iconBackground">
+            <i
+              className="icon fas fa-chevron-right"
+              onClick={() => viewComment(true)}
+            />
+          </div>
+        </Modal.Body>
+        {/* <div className="iconBackground">
             <i className=" icon fas fa-sync-alt" />
           </div>
           <div className="iconBackground">
             <i className="icon far fa-thumbs-up" />
           </div>
           <div className="iconBackground">
+            <i className=" icon fab fa-font-awesome-flag"><button onClick={()=>{return <FlagPost/>}}></button></i>/>
+          </div>
             <i className=" icon fab fa-font-awesome-flag" />
           </div> */}
-          {/* <Button variant="secondary">filter</Button>
+        {/* <Button variant="secondary">filter</Button>
           <Button variant="primary"> comment</Button> */}
-        </Modal.Footer>
       </Modal>
 
       <Modal
@@ -145,6 +158,25 @@ const Feeds = props => {
         </Modal.Header>
         <Modal.Body>
           <p>Bookmarked</p>
+        </Modal.Body>
+        <Modal.Footer>
+          {/* <Button variant="secondary">filter</Button>
+          <Button variant="primary"> comment</Button> */}
+        </Modal.Footer>
+      </Modal>
+      <Modal
+        show={showSearch}
+        onHide={() => search(false)}
+        dialogClassName="modal-90w"
+        aria-labelledby="example-custom-modal-styling-title"
+      >
+        <Modal.Header closeButton>
+          <Modal.Title id="example-custom-modal-styling-title">
+            search
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <input placeholder="search " type="text"/>
         </Modal.Body>
         <Modal.Footer>
           {/* <Button variant="secondary">filter</Button>
